@@ -42,10 +42,10 @@ const Pagination = ({
     const endIndex = startIndex + dataLimit;
     return data.slice(startIndex, endIndex);
   };
-  const getPaginationButtonsGroup = () => {
-    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-    return new Array(pageLimit).fill().map((_, index) => start + index + 1);
-  };
+  //   const getPaginationButtonsGroup = () => {
+  //     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+  //     return new Array(pageLimit).fill().map((_, index) => start + index + 1);
+  //   };
   return (
     <div>
       <h1>{title}</h1>
