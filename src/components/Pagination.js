@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { usePaginationRange, DOTS } from "../hooks/usePaginationRange";
 
-const Pagination = ({ data, RenderComponent, title, pageLimit, dataLimit }) => {
-  const [pages] = useState(Math.ceil(data.length / dataLimit));
+const Pagination = ({
+  data,
+  RenderComponent,
+  title,
+  pageLimit,
+  dataLimit,
+  siblingCount,
+}) => {
+  const [totalPageCount] = useState(Math.ceil(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
+
+  const paginationRange = usePaginationRange({
+    totalPageCount,
+    dataLimit,
+    pageLimit,
+    siblingCount,
+    currentPage,
+  });
 
   useEffect(() => {
     window.scrollTo({
@@ -52,21 +68,30 @@ const Pagination = ({ data, RenderComponent, title, pageLimit, dataLimit }) => {
           previous
         </button>
         {/* show paginated button group */}
-        {getPaginationButtonsGroup().map((item, index) => (
-          <button
-            key={index}
-            onClick={changePage}
-            className={`paginationItem ${
-              currentPage === item ? "active" : null
-            }`}
-          >
-            <span>{item}</span>
-          </button>
-        ))}
+        {paginationRange.map((item, index) => {
+          if (item === DOTS) {
+            return (
+              <button key={index} className={`paginationItem`}>
+                &#8230;
+              </button>
+            );
+          }
+          return (
+            <button
+              key={index}
+              onClick={changePage}
+              className={`paginationItem ${
+                currentPage === item ? "active" : null
+              }`}
+            >
+              <span>{item}</span>
+            </button>
+          );
+        })}
         {/* next button */}
         <button
           onClick={goToNextPage}
-          className={`next ${currentPage === pages ? "disabled" : ""}`}
+          className={`next ${currentPage === totalPageCount ? "disabled" : ""}`}
         >
           next
         </button>

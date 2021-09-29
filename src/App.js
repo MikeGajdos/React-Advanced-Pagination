@@ -30,6 +30,7 @@ function App() {
             title="Posts"
             pageLimit={5}
             dataLimit={10}
+            siblingCount={1}
           />
         </>
       ) : (
