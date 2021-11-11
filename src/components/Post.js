@@ -1,6 +1,6 @@
 import React from "react";
 
-function Post({ data }) {
+function Post({ data, kurva }) {
   const { id, title, body } = data;
   return (
     <div className="post">

@@ -5,17 +5,17 @@ const Pagination = ({
   data,
   RenderComponent,
   title,
-  pageLimit,
-  dataLimit,
+  buttonConst,
+  contentPerPage,
   siblingCount,
 }) => {
-  const [totalPageCount] = useState(Math.ceil(data.length / dataLimit));
+  const [totalPageCount] = useState(Math.ceil(data.length / contentPerPage));
   const [currentPage, setCurrentPage] = useState(1);
 
   const paginationRange = usePaginationRange({
     totalPageCount,
-    dataLimit,
-    pageLimit,
+    contentPerPage,
+    buttonConst,
     siblingCount,
     currentPage,
   });
@@ -38,14 +38,11 @@ const Pagination = ({
     setCurrentPage(pageNumber);
   }
   const getPaginatedData = () => {
-    const startIndex = currentPage * dataLimit - dataLimit;
-    const endIndex = startIndex + dataLimit;
+    const startIndex = currentPage * contentPerPage - contentPerPage;
+    const endIndex = startIndex + contentPerPage;
     return data.slice(startIndex, endIndex);
   };
-  //   const getPaginationButtonsGroup = () => {
-  //     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-  //     return new Array(pageLimit).fill().map((_, index) => start + index + 1);
-  //   };
+
   return (
     <div>
       <h1>{title}</h1>
@@ -63,7 +60,7 @@ const Pagination = ({
         {/* previous button */}
         <button
           onClick={gotToPreviousPage}
-          className={` prev ${currentPage === 1 ? "disables" : ""}`}
+          className={` prev ${currentPage === 1 ? "disabled" : ""}`}
         >
           previous
         </button>

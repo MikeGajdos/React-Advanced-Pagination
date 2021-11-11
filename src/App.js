@@ -28,8 +28,8 @@ function App() {
             data={posts}
             RenderComponent={Post}
             title="Posts"
-            pageLimit={5}
-            dataLimit={10}
+            buttonConst={3}
+            contentPerPage={5}
             siblingCount={1}
           />
         </>
